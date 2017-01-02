@@ -3,7 +3,14 @@ package com.borio;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements RequestTask.AsyncRequestResponse {
+import com.bluelinelabs.logansquare.LoganSquare;
+import com.borio.task.RequestTask;
+import com.borio.task.UpdateTask;
+
+import java.io.IOException;
+
+public class MainActivity extends AppCompatActivity
+        implements RequestTask.RequestResponse, UpdateTask.UpdateResponse {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +29,17 @@ public class MainActivity extends AppCompatActivity implements RequestTask.Async
             System.out.print(pass.getProvider());
             System.out.println(": " + pass.getPassword());
         }
+
+        try {
+            UpdateTask update = new UpdateTask(this);
+            update.execute("/sample", LoganSquare.serialize(result));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
+    public void onFetchingRequestFinish(Integer result) {
+        System.out.println(Integer.valueOf(result));
+    }
 }

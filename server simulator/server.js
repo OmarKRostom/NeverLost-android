@@ -1,5 +1,10 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+
+// parse application/json
+app.use(bodyParser.json())
+
 var sampleResponse = {
   "username": "test_user",
   "data": [
@@ -32,8 +37,8 @@ app.get('/sample', function(req, res) {
 // This responds a POST request for /sample
 app.post('/sample', function(req, res) {
   console.log("Got a POST request for the sample page");
-  console.log(req);
-  res.send('Done');
+  console.log(req.body);
+  res.status(200).end();
 })
 
 var server = app.listen(7575, function() {

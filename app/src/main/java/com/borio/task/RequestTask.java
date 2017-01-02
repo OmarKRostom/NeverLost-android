@@ -1,8 +1,10 @@
-package com.borio;
+package com.borio.task;
 
 import android.os.AsyncTask;
 
 import com.bluelinelabs.logansquare.LoganSquare;
+import com.borio.Borio;
+import com.borio.Utils;
 
 import java.io.IOException;
 
@@ -13,16 +15,16 @@ import okhttp3.Response;
 public class RequestTask extends AsyncTask<String, Void, Borio> {
 
     private static String TAG = RequestTask.class.getSimpleName();
-    public AsyncRequestResponse delegate = null;
+    public RequestResponse delegate = null;
 
     private OkHttpClient client = new OkHttpClient();
     private String urlString;
 
-//    public HandleRequestTask() {
+//    public RequestTask() {
 //        super();
 //    }
 
-    public RequestTask(AsyncRequestResponse delegate) {
+    public RequestTask(RequestResponse delegate) {
         super();
         this.delegate = delegate;
     }
@@ -53,7 +55,7 @@ public class RequestTask extends AsyncTask<String, Void, Borio> {
         }
     }
 
-    public interface AsyncRequestResponse {
+    public interface RequestResponse {
         void onFetchingRequestFinish(Borio result);
     }
 
