@@ -1,0 +1,34 @@
+//// In DB
+// Login
+{
+  "hash(username)": "hash(password + salt)",
+  "hash(username)": "hash(password + salt)"
+}
+
+// Salts (Dictionaries Attack)
+{
+  "hash(username)": "salt",
+  "hash(username)": "salt"
+}
+
+// Data Requests
+{
+  "hash(username)": "encrypt(object)",
+  "hash(username)": "encrypt(object)"
+}
+
+//// NOT In DB
+// Object which will be encrypted
+{
+  "username": "zzzzzzz",
+  "data": [
+    {
+      "provider": "xxxxxxx",
+      "password": "@@@@@@@"
+    },
+    {
+      "provider": "xxxxxxx",
+      "password": "@@@@@@@"
+    }
+  ]
+}
