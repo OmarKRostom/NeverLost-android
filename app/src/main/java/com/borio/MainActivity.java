@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.bluelinelabs.logansquare.LoganSquare;
+import com.borio.data.Borio;
+import com.borio.data.ProviderPassword;
 import com.borio.task.RequestTask;
 import com.borio.task.UpdateTask;
 
@@ -42,4 +44,5 @@ public class MainActivity extends AppCompatActivity
     public void onFetchingRequestFinish(Integer result) {
         System.out.println(Integer.valueOf(result));
     }
+
 }

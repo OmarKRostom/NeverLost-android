@@ -1,4 +1,4 @@
-package com.borio;
+package com.borio.data;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;

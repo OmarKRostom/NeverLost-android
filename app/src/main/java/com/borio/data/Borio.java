@@ -1,13 +1,9 @@
-package com.borio;
+package com.borio.data;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 
 import java.util.List;
-
-/**
- * Created by Ahmed Emad on 4 May, 2015.
- */
 
 @JsonObject
 public class Borio {
