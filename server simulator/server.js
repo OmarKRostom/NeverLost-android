@@ -10,10 +10,62 @@ var sampleResponse = {
   "data": [
     {
       "provider": "provider_1",
+      "username": "name_1",
       "password": "provider_1_pass"
     },
     {
+      "provider": "anghami",
+      "username": "name_anghami",
+      "password": "anghami_password"
+    },
+    {
+      "provider": "facebook",
+      "username": "name_facebook",
+      "password": "facebook_password"
+    },
+    {
+      "provider": "gmail",
+      "username": "name_gmail",
+      "password": "gmail_password"
+    },
+    {
+      "provider": "google",
+      "username": "name_google",
+      "password": "google_password"
+    },
+    {
+      "provider": "instagram",
+      "username": "name_instagram",
+      "password": "instagram_password"
+    },
+    {
+      "provider": "medium",
+      "username": "name_medium",
+      "password": "medium_password"
+    },
+    {
+      "provider": "quora",
+      "username": "name_quora",
+      "password": "quora_password"
+    },
+    {
+      "provider": "soundcloud",
+      "username": "name_soundcloud",
+      "password": "soundcloud_password"
+    },
+    {
+      "provider": "spotify",
+      "username": "name_spotify",
+      "password": "spotify_password"
+    },
+    {
+      "provider": "twitter",
+      "username": "name_twitter",
+      "password": "twitter_password"
+    },
+    {
       "provider": "provider_2",
+      "username": "name_2",
       "password": "provider_2_pass"
     }
   ]

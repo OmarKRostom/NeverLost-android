@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import android.widget.VideoView;
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.borio.R;
 import com.borio.data.Borio;
-import com.borio.data.ProviderPassword;
+import com.borio.data.ProviderInfo;
 import com.borio.task.RequestTask;
 import com.borio.task.UpdateTask;
 import com.borio.view.FormView;
@@ -32,12 +33,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,
         RequestTask.RequestResponse, UpdateTask.UpdateResponse {
 
     public static final String VIDEO_NAME = "welcome_video.mp4";
 
+    private List<ProviderInfo> providerInfos;
     private VideoView mVideoView;
     private Button buttonLogin;
     private Button buttonSignup;
@@ -107,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void playAnim() {
         ObjectAnimator anim = ObjectAnimator.ofFloat(tvAppName, "alpha", 0, 1);
-        anim.setDuration(4000);
+        anim.setDuration(3000);
         anim.setRepeatCount(1);
         anim.setRepeatMode(ObjectAnimator.REVERSE);
         anim.start();
@@ -184,8 +188,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 formView.animate().translationY(-1 * delta).alpha(0).setDuration(500).start();
                 if (view == buttonLogin) {
                     System.out.println("Login");
-//                    RequestTask request = new RequestTask(this);
-//                    request.execute("/sample");
+                    RequestTask request = new RequestTask(this);
+                    request.execute("/sample");
                 } else if (view == buttonSignup) {
                     System.out.println("Cancel Login");
                 }
@@ -210,8 +214,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onFetchingRequestFinish(Borio result) {
         System.out.println(result.getUsername());
-        System.out.println(result.getPasswords().size());
-        for (ProviderPassword pass : result.getPasswords()) {
+        System.out.println(result.getProviderInfos().size());
+        providerInfos = result.getProviderInfos();
+        for (ProviderInfo pass : result.getProviderInfos()) {
             System.out.print(pass.getProvider());
             System.out.println(": " + pass.getPassword());
         }
@@ -227,6 +232,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onFetchingUpdateFinish(Integer result) {
         System.out.println("Status: " + result);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        intent.putParcelableArrayListExtra("provider_passwords", new ArrayList(providerInfos));
+        startActivity(intent);
+        finish();
     }
 
     enum InputType {

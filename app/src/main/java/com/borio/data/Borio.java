@@ -12,14 +12,14 @@ public class Borio {
     private String username;
 
     @JsonField(name = "data")
-    private List<ProviderPassword> passwords;
+    private List<ProviderInfo> providerInfos;
 
     public Borio() {
     }
 
-    public Borio(String username, List<ProviderPassword> passwords) {
+    public Borio(String username, List<ProviderInfo> providerInfos) {
         this.username = username;
-        this.passwords = passwords;
+        this.providerInfos = providerInfos;
     }
 
     public String getUsername() {
@@ -30,12 +30,12 @@ public class Borio {
         this.username = username;
     }
 
-    public List<ProviderPassword> getPasswords() {
-        return passwords;
+    public List<ProviderInfo> getProviderInfos() {
+        return providerInfos;
     }
 
-    public void setPasswords(List<ProviderPassword> passwords) {
-        this.passwords = passwords;
+    public void setProviderInfos(List<ProviderInfo> providerInfos) {
+        this.providerInfos = providerInfos;
     }
 
 }

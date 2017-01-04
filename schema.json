@@ -24,10 +24,12 @@
   "data": [
     {
       "provider": "xxxxxxx",
+      "username": "yyyyyyy",
       "password": "@@@@@@@"
     },
     {
       "provider": "xxxxxxx",
+      "username": "yyyyyyy",
       "password": "@@@@@@@"
     }
   ]
