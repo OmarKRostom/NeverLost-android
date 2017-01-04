@@ -56,12 +56,12 @@ public class UpdateTask extends AsyncTask<String, Void, Integer> {
     @Override
     protected void onPostExecute(Integer result) {
         if (delegate != null) {
-            delegate.onFetchingRequestFinish(result);
+            delegate.onFetchingUpdateFinish(result);
         }
     }
 
     public interface UpdateResponse {
-        void onFetchingRequestFinish(Integer result);
+        void onFetchingUpdateFinish(Integer result);
     }
 
 }

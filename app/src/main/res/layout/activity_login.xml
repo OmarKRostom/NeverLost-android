@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.borio.activity.LoginActivity">
+
+    <com.borio.view.VideoView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <com.borio.view.FormView
+            android:id="@+id/form_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="124dp"
+            android:alpha="0"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+        <Button
+                android:id="@+id/button_login"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:text="@string/button_login"
+                android:textColor="@color/button_text"/>
+
+        <Button
+                android:id="@+id/button_signup"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:background="@drawable/button"
+                android:text="@string/button_signup"
+                android:textColor="@color/button_text"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/tv_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="64sp"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"/>
+
+</RelativeLayout>

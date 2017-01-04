@@ -1,9 +1,11 @@
-package com.borio;
+package com.borio.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.bluelinelabs.logansquare.LoganSquare;
+import com.borio.R;
 import com.borio.data.Borio;
 import com.borio.data.ProviderPassword;
 import com.borio.task.RequestTask;
@@ -11,13 +13,13 @@ import com.borio.task.UpdateTask;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity
+public class SplashActivity extends AppCompatActivity
         implements RequestTask.RequestResponse, UpdateTask.UpdateResponse {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash);
 
         RequestTask request = new RequestTask(this);
         request.execute("/sample");
@@ -41,8 +43,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFetchingRequestFinish(Integer result) {
-        System.out.println(Integer.valueOf(result));
+    public void onFetchingUpdateFinish(Integer result) {
+        System.out.println("Status: " + result);
+        Intent intent = new Intent(this, LoginActivity.class);;
+        startActivity(intent);
+        finish();
     }
 
 }
