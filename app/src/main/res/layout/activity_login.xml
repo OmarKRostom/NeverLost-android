@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button"
                 android:text="@string/button_login"
+                android:textSize="20sp"
                 android:textColor="@color/button_text"/>
 
         <Button
@@ -44,15 +45,17 @@
                 android:layout_marginStart="24dp"
                 android:background="@drawable/button"
                 android:text="@string/button_signup"
+                android:textSize="20sp"
                 android:textColor="@color/button_text"/>
     </LinearLayout>
 
     <TextView
             android:id="@+id/tv_app_name"
+            fontPath="fonts/moon.otf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textSize="64sp"
+            android:textSize="50sp"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"/>
 

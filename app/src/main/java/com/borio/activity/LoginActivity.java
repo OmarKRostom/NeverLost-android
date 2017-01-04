@@ -3,6 +3,7 @@ package com.borio.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,15 +17,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.bluelinelabs.logansquare.LoganSquare;
 import com.borio.R;
+import com.borio.data.Borio;
+import com.borio.data.ProviderPassword;
+import com.borio.task.RequestTask;
+import com.borio.task.UpdateTask;
 import com.borio.view.FormView;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,
+        RequestTask.RequestResponse, UpdateTask.UpdateResponse {
 
     public static final String VIDEO_NAME = "welcome_video.mp4";
 
@@ -39,6 +49,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/moon.otf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
@@ -144,6 +160,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
     public void onClick(View view) {
         int delta = formView.getTop() + formView.getHeight();
         switch (inputType) {
@@ -163,6 +184,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 formView.animate().translationY(-1 * delta).alpha(0).setDuration(500).start();
                 if (view == buttonLogin) {
                     System.out.println("Login");
+//                    RequestTask request = new RequestTask(this);
+//                    request.execute("/sample");
                 } else if (view == buttonSignup) {
                     System.out.println("Cancel Login");
                 }
@@ -182,6 +205,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 buttonSignup.setText(R.string.button_signup);
                 break;
         }
+    }
+
+    @Override
+    public void onFetchingRequestFinish(Borio result) {
+        System.out.println(result.getUsername());
+        System.out.println(result.getPasswords().size());
+        for (ProviderPassword pass : result.getPasswords()) {
+            System.out.print(pass.getProvider());
+            System.out.println(": " + pass.getPassword());
+        }
+
+        try {
+            UpdateTask update = new UpdateTask(this);
+            update.execute("/sample", LoganSquare.serialize(result));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onFetchingUpdateFinish(Integer result) {
+        System.out.println("Status: " + result);
     }
 
     enum InputType {

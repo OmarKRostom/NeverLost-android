@@ -1,53 +1,52 @@
 package com.borio.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 
-import com.bluelinelabs.logansquare.LoganSquare;
 import com.borio.R;
-import com.borio.data.Borio;
-import com.borio.data.ProviderPassword;
-import com.borio.task.RequestTask;
-import com.borio.task.UpdateTask;
 
-import java.io.IOException;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SplashActivity extends AppCompatActivity
-        implements RequestTask.RequestResponse, UpdateTask.UpdateResponse {
+public class SplashActivity extends AppCompatActivity {
+
+    private static int SPLASH_TIME_OUT = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/moon.otf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
 
-        RequestTask request = new RequestTask(this);
-        request.execute("/sample");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
     }
 
     @Override
-    public void onFetchingRequestFinish(Borio result) {
-        System.out.println(result.getUsername());
-        System.out.println(result.getPasswords().size());
-        for (ProviderPassword pass : result.getPasswords()) {
-            System.out.print(pass.getProvider());
-            System.out.println(": " + pass.getPassword());
-        }
-
-        try {
-            UpdateTask update = new UpdateTask(this);
-            update.execute("/sample", LoganSquare.serialize(result));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onFetchingUpdateFinish(Integer result) {
-        System.out.println("Status: " + result);
-        Intent intent = new Intent(this, LoginActivity.class);;
-        startActivity(intent);
-        finish();
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }
