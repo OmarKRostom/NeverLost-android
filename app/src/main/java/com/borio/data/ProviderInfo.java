@@ -31,8 +31,9 @@ public class ProviderInfo implements Parcelable {
     public ProviderInfo() {
     }
 
-    public ProviderInfo(String provider, String password) {
+    public ProviderInfo(String provider, String username, String password) {
         this.provider = provider;
+        this.username = username;
         this.password = password;
     }
 

@@ -18,7 +18,7 @@
 
         <mehdi.sakout.fancybuttons.FancyButton
                 fontPath="fonts/moon.otf"
-                android:id="@+id/btn_facebook_like"
+                android:id="@+id/btn_add_provider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

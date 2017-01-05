@@ -8,13 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.borio.R;
+import com.borio.Utils;
 import com.borio.data.ProviderInfo;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Ahmed Emad.
@@ -23,22 +22,7 @@ import java.util.Map;
 public class ProviderCardView extends AbstractItem<ProviderCardView, ProviderCardView.FeedNewViewHolder> {
 
     private static final ViewHolderFactory<? extends FeedNewViewHolder> FACTORY = new ItemFactory();
-    private static final Map<String, Integer> providersImages = new HashMap<>();
     private static String TAG = ProviderCardView.class.getSimpleName();
-
-    static {
-        providersImages.put("provider", R.drawable.provider);
-        providersImages.put("anghami", R.drawable.anghami);
-        providersImages.put("facebook", R.drawable.facebook);
-        providersImages.put("gmail", R.drawable.gmail);
-        providersImages.put("google", R.drawable.google);
-        providersImages.put("instagram", R.drawable.instagram);
-        providersImages.put("medium", R.drawable.medium);
-        providersImages.put("quora", R.drawable.quora);
-        providersImages.put("soundcloud", R.drawable.soundcloud);
-        providersImages.put("spotify", R.drawable.spotify);
-        providersImages.put("twitter", R.drawable.twitter);
-    }
 
     public ProviderInfo providerInfo;
     private Context context;
@@ -67,10 +51,10 @@ public class ProviderCardView extends AbstractItem<ProviderCardView, ProviderCar
 
         Drawable drawable;
         String providerName = providerInfo.getProvider().trim().toLowerCase();
-        if (providersImages.containsKey(providerName)) {
-            drawable = context.getResources().getDrawable(providersImages.get(providerName));
+        if (Utils.providersImages.containsKey(providerName)) {
+            drawable = context.getResources().getDrawable(Utils.providersImages.get(providerName));
         } else {
-            drawable = context.getResources().getDrawable(providersImages.get("provider"));
+            drawable = context.getResources().getDrawable(Utils.providersImages.get("provider"));
         }
         feedNewViewHolder.mImage.setImageDrawable(drawable);
     }

@@ -1,6 +1,7 @@
 package com.borio.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import java.util.LinkedList;
 import java.util.List;
 
+import mehdi.sakout.fancybuttons.FancyButton;
+
 /**
  * Created by Ahmed Emad on 4 May, 2015.
  */
@@ -30,6 +33,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
+    FancyButton mNewProvider;
 
     private List<ProviderInfo> providerInfos;
     private List<ProviderCardView> providerPasswordsViews;
@@ -46,9 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_providers);
-
-        System.out.println(mRecyclerView == null);
+        initViews();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
@@ -57,9 +59,20 @@ public class MainActivity extends AppCompatActivity {
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
-        providerInfos = getIntent().getParcelableArrayListExtra("provider_passwords");
+        providerInfos = getIntent().getParcelableArrayListExtra("providers_infos");
         System.out.println(providerInfos.size());
         setupProvidersCards();
+    }
+
+    private void initViews() {
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_providers);
+        mNewProvider = (FancyButton) findViewById(R.id.btn_add_provider);
+        mNewProvider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewProvider();
+            }
+        });
     }
 
     private void setupProvidersCards() {
@@ -71,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onClick(View v, IAdapter<ProviderCardView> adapter, ProviderCardView item, int position) {
                 System.out.println(item.providerInfo.getProvider());
-//                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-//                intent.putExtra("provider_password", item.providerPassword);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, ProviderInfoActivity.class);
+                intent.putExtra("provider_info", item.providerInfo);
+                startActivity(intent);
                 return false;
             }
         });
@@ -87,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
             providerPasswordsViews.add(new ProviderCardView(providerInfo, this));
         }
         mFastItemAdapter.add(providerPasswordsViews);
+    }
+
+    private void addNewProvider() {
+        System.out.println("addNewProvider");
     }
 
     @Override

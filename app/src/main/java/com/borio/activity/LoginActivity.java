@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
@@ -187,9 +188,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case LOGIN:
                 formView.animate().translationY(-1 * delta).alpha(0).setDuration(500).start();
                 if (view == buttonLogin) {
-                    System.out.println("Login");
-                    RequestTask request = new RequestTask(this);
-                    request.execute("/sample");
+//                    System.out.println("Login");
+//                    RequestTask request = new RequestTask(this);
+//                    request.execute("/sample");
+                    providerInfos = new ArrayList<>();
+                    providerInfos.add(new ProviderInfo("provider_1", "name_1", "provider_1_pass"));
+                    providerInfos.add(new ProviderInfo("anghami", "name_anghami", "anghami_password"));
+                    providerInfos.add(new ProviderInfo("facebook", "name_facebook", "facebook_password"));
+                    providerInfos.add(new ProviderInfo("gmail", "name_gmail", "gmail_password"));
+                    providerInfos.add(new ProviderInfo("google", "name_google", "google_password"));
+                    providerInfos.add(new ProviderInfo("instagram", "name_instagram", "instagram_password"));
+                    providerInfos.add(new ProviderInfo("medium", "name_medium", "medium_password"));
+                    providerInfos.add(new ProviderInfo("quora", "name_quora", "quora_password"));
+                    providerInfos.add(new ProviderInfo("soundcloud", "name_soundcloud", "soundcloud_password"));
+                    providerInfos.add(new ProviderInfo("spotify", "name_spotify", "spotify_password"));
+                    providerInfos.add(new ProviderInfo("twitter", "name_twitter", "twitter_password"));
+                    providerInfos.add(new ProviderInfo("provider_2", "name_2", "provider_2_pass"));
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putParcelableArrayListExtra("providers_infos", new ArrayList(providerInfos));
+                    startActivity(intent);
+                    finish();
                 } else if (view == buttonSignup) {
                     System.out.println("Cancel Login");
                 }
@@ -233,8 +251,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onFetchingUpdateFinish(Integer result) {
         System.out.println("Status: " + result);
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        Bundle bundle = new Bundle();
-        intent.putParcelableArrayListExtra("provider_passwords", new ArrayList(providerInfos));
+        intent.putParcelableArrayListExtra("providers_infos", new ArrayList(providerInfos));
         startActivity(intent);
         finish();
     }
