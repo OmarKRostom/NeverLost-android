@@ -21,6 +21,7 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -104,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void addNewProvider() {
         System.out.println("addNewProvider");
+        Intent intent = new Intent(MainActivity.this, NewProviderActivity.class);
+        intent.putParcelableArrayListExtra("providers_infos", new ArrayList(providerInfos));
+        startActivity(intent);
     }
 
     @Override
