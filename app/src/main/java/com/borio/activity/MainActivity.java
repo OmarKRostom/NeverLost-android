@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
         initViews();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         mNewProvider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addNewProvider();
+                addNewProviderInfo();
             }
         });
     }
@@ -103,9 +104,8 @@ public class MainActivity extends AppCompatActivity {
         mFastItemAdapter.add(providerPasswordsViews);
     }
 
-    private void addNewProvider() {
-        System.out.println("addNewProvider");
-        Intent intent = new Intent(MainActivity.this, NewProviderActivity.class);
+    private void addNewProviderInfo() {
+        Intent intent = new Intent(MainActivity.this, NewProviderInfoActivity.class);
         intent.putParcelableArrayListExtra("providers_infos", new ArrayList(providerInfos));
         startActivity(intent);
     }

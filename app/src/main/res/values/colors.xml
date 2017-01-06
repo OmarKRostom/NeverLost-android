@@ -7,6 +7,11 @@
     <color name="white">#FFF</color>
     <color name="darkteal" type="color">#00796B</color>
     <color name="teal" type="color">#009688</color>
+    <color name="lightteal" type="color">#80CBC4</color>
+
+    <color name="darkblue" type="color">#1976D2</color>
+    <color name="blue" type="color">#2196F3</color>
+    <color name="lightblue" type="color">#90CAF9</color>
 
     <color name="black">#000</color>
     <color name="lightsilver">#808080</color>
