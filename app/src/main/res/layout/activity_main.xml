@@ -32,7 +32,7 @@
                 fancy:fb_borderWidth="1dp"
                 fancy:fb_defaultColor="@color/darkteal"
                 fancy:fb_focusColor="@color/teal"
-                fancy:fb_fontIconResource="&#xf12e;"
+                fancy:fb_fontIconResource="&#xf084;"
                 fancy:fb_fontIconSize="20sp"
                 fancy:fb_iconPosition="left"
                 fancy:fb_radius="20dp"

@@ -3,8 +3,8 @@ package com.borio.task;
 import android.os.AsyncTask;
 
 import com.bluelinelabs.logansquare.LoganSquare;
-import com.borio.data.Borio;
 import com.borio.Utils;
+import com.borio.data.Borio;
 
 import java.io.IOException;
 
