@@ -29,10 +29,11 @@ proguard/
 
 # Android Studio
 *.iml
-/.idea/workspace.xml
-/.idea/libraries
+.idea/workspace.xml
+.idea/libraries
+.idea/gradle.xml
 .idea/dictionaries/
-/captures
+captures
 .externalNativeBuild
 
 # MacOS
