@@ -13,8 +13,16 @@
 
 // Data Requests
 {
-  "hash(username)": "encrypt(object)",
-  "hash(username)": "encrypt(object)"
+  "hash(username)": {
+    "data": "encrypt(object, iv, salt, password)",
+    "iv": "xxxx",
+    "salt": "zzzz"
+  },
+  "hash(username)": {
+    "data": "encrypt(object, iv, salt, password)",
+    "iv": "xxxx",
+    "salt": "zzzz"
+  }
 }
 
 //// NOT In DB

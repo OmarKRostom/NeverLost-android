@@ -1,0 +1,65 @@
+// Authentication
+{
+  "hash(username)": "hash(password + salt)",
+  "hash(username)": "hash(password + salt)"
+}
+
+// Salts (Dictionaries Attack)
+{
+  "hash(username)": "salt",
+  "hash(username)": "salt"
+}
+
+// Encrypted Data
+{
+  "hash(username)": {
+    "data": "encrypt(object, iv, salt, password)",
+    "iv": "xxxx",
+    "salt": "zzzz"
+  },
+  "hash(username)": {
+    "data": "encrypt(object, iv, salt, password)",
+    "iv": "xxxx",
+    "salt": "zzzz"
+  }
+}
+
+
+### We verify a valid SSL connection to the server. So any sent information is
+    protected on the wire and can only be read by the server.
+
+## Sign Up
+01. User sends sign up information (chosen username and password) to the server.
+02. Server hashes the received username.
+03. Server checks if the hashed username exists as key in Salts DB (username
+    must be unique).
+04. If the hash exists, server responds that the username is already used and
+    does not proceed.
+05. If the hash does not exist, server creates a new random salt for this username.
+06. The generated salt is saved as value to the username hash as key in the Salts DB.
+07. The generated salt is added to the received password and then the new whole
+    value is hashed.
+08. The new hashed value is saved in Authentication DB corresponding to the
+    hashed username.
+09. A new record is made in Data DB with empty value to the same hashed username.
+10. Server responds that a new user has created successfully.
+
+## Login
+01. User sends sign in information (username and password) to the server.
+02. Server hashes the received username.
+03. Server checks if the hashed username exists as key in Salts DB.
+04. If the hash does not exist, server responds that login failed and does not proceed.
+05. If the hash exists, server gets the salt corresponding to that username hash
+    from Salts DB.
+06. The salt is added to the received password and then the new whole value is hashed.
+07. The hashed value is compared to the value from Authentication DB corresponding
+    to the hashed username.
+08. If values do not match, server responds that login failed and does not proceed.
+09. If values match, server responds that user logged in successfully.
+10. Server gets the encrypted data from Data DB corresponding to the username hash.
+11. Server send the encrypted data to the successfully logged in user.
+
+### The encrypted data can read only by user as it's encrypted with his password
+    which is not saved by the server.
+### Any data update by the user requires encrypting the whole data by the user
+    and sending the whole encrypted data to the server to just save it.
