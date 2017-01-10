@@ -1,9 +1,15 @@
 //// In DB
 // Login
-{
-  "hash(username)": "hash(password + salt)",
-  "hash(username)": "hash(password + salt)"
-}
+[
+  {
+    "username": "hash(username)",
+    "password": "hash(password + salt)"
+  },
+  {
+    "username": "hash(username)",
+    "password": "hash(password + salt)"
+  }
+]
 
 // Salts (Dictionaries Attack)
 {
