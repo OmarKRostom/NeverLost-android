@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FormView formView;
     private TextView tvAppName;
 
-    private View decorView;;
+    private View decorView;
 
     private InputType inputType = InputType.NONE;
 
@@ -265,10 +265,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         finish();
     }
 
-    enum InputType {
-        NONE, LOGIN, SIGN_UP;
-    }
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -284,7 +280,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
+
+    enum InputType {
+        NONE, LOGIN, SIGN_UP;
     }
 
 }
