@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.borio.R;
 
@@ -21,6 +22,8 @@ public class FormView extends LinearLayout {
     EditText editName;
     @BindView(R.id.edit_name)
     EditText editPass;
+    @BindView(R.id.tv_app_name2)
+    TextView appText;
 
     public FormView(Context context) {
         super(context);
@@ -48,5 +51,6 @@ public class FormView extends LinearLayout {
         super.setFocusable(focusable);
         editName.setFocusable(focusable);
         editPass.setFocusable(focusable);
+        appText.setFocusable(focusable);
     }
 }
