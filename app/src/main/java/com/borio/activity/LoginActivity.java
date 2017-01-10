@@ -20,7 +20,7 @@ import android.widget.VideoView;
 
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.borio.R;
-import com.borio.data.Borio;
+import com.borio.data.Data;
 import com.borio.data.ProviderInfo;
 import com.borio.task.RequestTask;
 import com.borio.task.UpdateTask;
@@ -230,7 +230,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onFetchingRequestFinish(Borio result) {
+    public void onFetchingRequestFinish(Data result) {
         System.out.println(result.getUsername());
         System.out.println(result.getProviderInfos().size());
         providerInfos = result.getProviderInfos();

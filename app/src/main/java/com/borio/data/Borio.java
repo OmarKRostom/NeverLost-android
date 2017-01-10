@@ -3,39 +3,46 @@ package com.borio.data;
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 
-import java.util.List;
-
 @JsonObject
 public class Borio {
 
-    @JsonField
-    private String username;
-
     @JsonField(name = "data")
-    private List<ProviderInfo> providerInfos;
+    private String encryptedData;
+    @JsonField
+    private String iv;
+    @JsonField
+    private String salt;
 
     public Borio() {
     }
 
-    public Borio(String username, List<ProviderInfo> providerInfos) {
-        this.username = username;
-        this.providerInfos = providerInfos;
+    public Borio(String encryptedData, String iv, String salt) {
+        this.encryptedData = encryptedData;
+        this.iv = iv;
+        this.salt = salt;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEncryptedData() {
+        return encryptedData;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEncryptedData(String encryptedData) {
+        this.encryptedData = encryptedData;
     }
 
-    public List<ProviderInfo> getProviderInfos() {
-        return providerInfos;
+    public String getIv() {
+        return iv;
     }
 
-    public void setProviderInfos(List<ProviderInfo> providerInfos) {
-        this.providerInfos = providerInfos;
+    public void setIv(String iv) {
+        this.iv = iv;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 }

@@ -29,7 +29,7 @@
 // Object which will be encrypted
 {
   "username": "zzzzzzz",
-  "data": [
+  "providers_infos": [
     {
       "provider": "xxxxxxx",
       "username": "yyyyyyy",
