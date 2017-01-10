@@ -29,4 +29,10 @@
     <color name="text_color">#949ca8</color>
 
     <color name="fabPrimary">#36465d</color>
+
+    <color name="red500">#db4437</color>
+
+    <color name="dismisscolor2">#546e7a</color>
+
+    <color name="dismisscolor">#14acae</color>
 </resources>

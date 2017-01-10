@@ -6,9 +6,11 @@ import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -17,12 +19,13 @@ import android.widget.Toast;
 
 import com.borio.R;
 import com.borio.Utils;
+import com.borio.adapter.ProvidersAdapter;
+import com.borio.adapter.SimpleItemTouchHelperCallback;
 import com.borio.data.ProviderInfo;
 import com.borio.view.ProviderCardView;
 import com.melnykov.fab.FloatingActionButton;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.tiancaicc.springfloatingactionmenu.MenuItemView;
 import com.tiancaicc.springfloatingactionmenu.OnMenuActionListener;
 import com.tiancaicc.springfloatingactionmenu.SpringFloatingActionMenu;
@@ -69,11 +72,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AnimationDrawable frameReverseAnim;
 
     private RecyclerView mRecyclerView;
-    private View decorView;
+    private CoordinatorLayout coordinatorLayout;
 
     private List<ProviderInfo> providerInfos;
     private List<ProviderCardView> providerPasswordsViews;
-    private FastItemAdapter<ProviderCardView> mFastItemAdapter;
+    private ProvidersAdapter<ProviderCardView> mFastItemAdapter;
+    private ItemTouchHelper mItemTouchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-        hideUI();
         initViews();
 
         createFabFrameAnim();
@@ -107,40 +110,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initFAB();
     }
 
-    private void hideUI() {
-        decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
-    }
-
     private void initViews() {
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_providers);
-//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                if (dy > 0 || dy < 0 && fab.isShown()) {
-//                    fab.hide();
-//                }
-//            }
-//
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                    fab.show();
-//                }
-//
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//        });
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_main);
     }
 
     private void setupProvidersCards() {
-        mFastItemAdapter = new FastItemAdapter<>();
+        mFastItemAdapter = new ProvidersAdapter<>(this, coordinatorLayout);
         mFastItemAdapter.withSelectable(false);
         mFastItemAdapter.withMultiSelect(false);
         mFastItemAdapter.withSelectOnLongClick(false);
@@ -164,6 +140,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             providerPasswordsViews.add(new ProviderCardView(providerInfo, this));
         }
         mFastItemAdapter.add(providerPasswordsViews);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFastItemAdapter, this);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void addNewProviderInfo() {
@@ -192,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         R.color.text_color, this)
                 .animationType(SpringFloatingActionMenu.ANIMATION_TYPE_TUMBLR)
                 .revealColor(R.color.fabPrimary)
-                .gravity(Gravity.RIGHT | Gravity.BOTTOM)
+                .gravity(Gravity.CENTER | Gravity.BOTTOM)
                 .onMenuActionListner(new OnMenuActionListener() {
                     @Override
                     public void onMenuOpen() {
@@ -260,20 +240,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            decorView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
     }
 
 }

@@ -16,24 +16,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.borio.ProvidersAdapter;
 import com.borio.R;
 import com.borio.Utils;
+import com.borio.adapter.ProvidersHintsAdapter;
 import com.borio.data.ProviderInfo;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
 public class NewProviderInfoActivity extends AppCompatActivity {
-
-    private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    private static SecureRandom rnd = new SecureRandom();
 
     private ProviderInfo providerInfo;
     private List<ProviderInfo> providerInfos;
@@ -79,7 +75,7 @@ public class NewProviderInfoActivity extends AppCompatActivity {
         saveButton = (FancyButton) findViewById(R.id.btn_save_provider);
         generateButton = (FancyButton) findViewById(R.id.btn_random_password);
 
-        ProvidersAdapter adapter = new ProvidersAdapter(NewProviderInfoActivity.this,
+        ProvidersHintsAdapter adapter = new ProvidersHintsAdapter(NewProviderInfoActivity.this,
                 new ArrayList(Utils.providersImages.keySet()),
                 new ArrayList(Utils.providersImages.values()));
         providerAutocompleteText.setAdapter(adapter);
@@ -121,7 +117,7 @@ public class NewProviderInfoActivity extends AppCompatActivity {
     }
 
     private void generateRandomPassword() {
-        passTextView.setText(randomString(20));
+        passTextView.setText(Utils.randomString(Utils.rnd.nextInt(7) + 12));
     }
 
     private void addNewProvider() {
@@ -134,13 +130,6 @@ public class NewProviderInfoActivity extends AppCompatActivity {
         Intent intent = new Intent(NewProviderInfoActivity.this, MainActivity.class);
         intent.putParcelableArrayListExtra("providers_infos", new ArrayList(providerInfos));
         startActivity(intent);
-    }
-
-    private String randomString(int len) {
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-        return sb.toString();
     }
 
     @Override

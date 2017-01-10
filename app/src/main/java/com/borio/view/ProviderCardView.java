@@ -2,6 +2,8 @@ package com.borio.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import com.borio.R;
 import com.borio.Utils;
+import com.borio.adapter.ItemTouchHelperViewHolder;
 import com.borio.data.ProviderInfo;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
@@ -76,16 +79,33 @@ public class ProviderCardView extends AbstractItem<ProviderCardView, ProviderCar
     }
 
 
-    static class FeedNewViewHolder extends RecyclerView.ViewHolder {
+    static class FeedNewViewHolder extends RecyclerView.ViewHolder implements
+            ItemTouchHelperViewHolder {
+        CardView cardView;
         TextView mProvider;
         TextView mUsername;
         ImageView mImage;
 
         public FeedNewViewHolder(View view) {
             super(view);
-            mProvider = (TextView) view.findViewById(R.id.card_provider);
-            mUsername = (TextView) view.findViewById(R.id.card_username);
+            cardView = (CardView) view.findViewById(R.id.card_provider);
+            mProvider = (TextView) view.findViewById(R.id.card_tv_provider);
+            mUsername = (TextView) view.findViewById(R.id.card_tv_username);
             mImage = (ImageView) view.findViewById(R.id.card_image);
+        }
+
+        @Override
+        public void onItemSelected(Context context) {
+            cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.dismisscolor2));
+            mUsername.setTextColor(ContextCompat.getColor(context, R.color.white));
+//            cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.dismisscolor));
+        }
+
+        @Override
+        public void onItemClear(Context context) {
+            cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            mUsername.setTextColor(ContextCompat.getColor(context, R.color.darkteal));
+//            container.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
         }
     }
 

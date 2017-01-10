@@ -91,7 +91,7 @@ public class ProviderInfoActivity extends AppCompatActivity {
     }
 
     void generateNewPassword() {
-        System.out.println("generateNewPassword");
+        mPassword.setText(Utils.randomString(Utils.rnd.nextInt(7) + 12));
     }
 
     @Override

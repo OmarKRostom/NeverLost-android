@@ -1,4 +1,4 @@
-package com.borio;
+package com.borio.adapter;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -10,13 +10,15 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.borio.R;
+
 import java.util.ArrayList;
 
 /**
  * Created by Ahmed Emad on 4 May, 2015.
  */
 
-public class ProvidersAdapter extends ArrayAdapter<String> {
+public class ProvidersHintsAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
     private final ArrayList<String> providers;
@@ -63,7 +65,7 @@ public class ProvidersAdapter extends ArrayAdapter<String> {
         }
     };
 
-    public ProvidersAdapter(Activity context, ArrayList<String> providers, ArrayList<Integer> imageId) {
+    public ProvidersHintsAdapter(Activity context, ArrayList<String> providers, ArrayList<Integer> imageId) {
         super(context, R.layout.provider_autocomplete, providers);
         this.context = context;
         this.providers = providers;
