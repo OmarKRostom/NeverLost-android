@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FormView formView;
     private TextView tvAppName;
 
+    private View decorView;;
+
     private InputType inputType = InputType.NONE;
 
     @Override
@@ -70,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
+        hideUI();
         initView();
 
         File videoFile = getFileStreamPath(VIDEO_NAME);
@@ -79,6 +82,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         playVideo(videoFile);
         playAnim();
+    }
+
+    private void hideUI() {
+        decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     private void initView() {
@@ -162,11 +176,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
         mVideoView.stopPlayback();
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
@@ -258,6 +267,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     enum InputType {
         NONE, LOGIN, SIGN_UP;
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
     }
 
 }

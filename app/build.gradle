@@ -56,4 +56,6 @@ dependencies {
         transitive = true
     }
     compile 'com.mikepenz:fastadapter-commons:2.1.0@aar'
+
+    compile 'com.tiancaicc.springfloatingactionmenu:library:0.0.2'
 }

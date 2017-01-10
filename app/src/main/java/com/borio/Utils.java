@@ -10,6 +10,11 @@ public class Utils {
     public static int serverPort = 7575;
     public static String serverURL = serverAddress + ":" + serverPort;
 
+    public static final String newProviderInfo = "New Password";
+    public static final String logOut = "Log Out";
+    public static final String aboutUS = "Who Are We?";
+    public static final String aboutApp = "What Is This?";
+
     static {
         providersImages.put("provider", R.drawable.provider);
         providersImages.put("anghami", R.drawable.anghami);
